@@ -63,14 +63,22 @@ def filtrar_produtos_com_baixa_quantidade(estoque_lista, limite_minimo=5):
 def atualizar_quantidade_produto(estoque_lista, codigo, quantidade):
     for produto in estoque_lista:
         if produto['codigo'] == codigo:
-            produto['quantidade'] += quantidade
-            return produto
+            if validar_quantidade_produto(produto, quantidade):
+                produto['quantidade'] -= quantidade
+                return produto
     return None
+
 
 def atualizar_preco_venda(estoque_lista, codigo, novo_preco_venda):
     for produto in estoque_lista:
         if produto['codigo'] == codigo:
-            produto['preco_venda'] = novo_preco_venda
-            return produto
-    return None
+            if validar_preco_venda(produto, novo_preco_venda):
+                produto['preco_venda'] = novo_preco_venda
+                return produto
+    return None  
 
+def validar_preco_venda(produto, novo_preco_venda):
+    return novo_preco_venda >= produto['preco_custo']
+
+def validar_quantidade_produto(produto, quantidade):
+    return produto['quantidade'] >= quantidade
