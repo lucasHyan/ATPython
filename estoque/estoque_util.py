@@ -15,28 +15,39 @@ def gerar_novo_codigo(estoque_lista):
     ultimo_codigo = max(produto['codigo'] for produto in estoque_lista)
     return ultimo_codigo + 1
 
-def lista_produtos_ordenado(estoque_lista, asc=True):
+def lista_produtos_ordenado_quantidade(estoque_lista, asc=True):
     return sorted(estoque_lista, key=lambda produto: produto['quantidade'], reverse=not asc)
 
-def buscar_produto(*, estoque_lista, nome=None, codigo=None):
+def buscar_produto(*, estoque_lista, nome_usuario=None, codigo=None):
     produtos_encontrados = []
     
     for produto in estoque_lista:
-        if nome and nome.lower() in produto['nome'].lower():
+        if nome_usuario and nome_usuario.lower() in produto['nome'].lower():
             produtos_encontrados.append(produto)
         elif codigo and produto['codigo'] == codigo:
             produtos_encontrados.append(produto)
     
-    if not produtos_encontrados:
-        print("Nenhum produto encontrado.")
-    else:
-        for produto in produtos_encontrados:
-            print(f"Nome: {produto['nome']}, Código: {produto['codigo']}, Quantidade: {produto['quantidade']}, Preço de Custo: {produto['preco_custo']}, Preço de Venda: {produto['preco_venda']}")
-    
     return produtos_encontrados
 
-def get_produto_por_codigo(estoque_lista, codigo):
+def remover_produto(estoque_lista, codigo):
+    produto_removido = None
+    
     for produto in estoque_lista:
         if produto['codigo'] == codigo:
-            return produto
+            produto_removido = produto
+            estoque_lista.remove(produto)
+            return produto_removido
     return None
+    
+def consultar_produtos_esgotados(estoque_lista):
+    produtos_esgotados = []
+    
+    for produto in estoque_lista:
+        if produto['quantidade'] == 0:
+            produtos_esgotados.append(produto)
+    
+    if not produtos_esgotados:
+        return None
+    else:
+        return produtos_esgotados
+          
