@@ -51,3 +51,26 @@ def consultar_produtos_esgotados(estoque_lista):
     else:
         return produtos_esgotados
           
+def filtrar_produtos_com_baixa_quantidade(estoque_lista, limite_minimo=5):
+    produtos_com_baixa_quantidade = []
+    
+    for produto in estoque_lista:
+        if produto['quantidade'] < limite_minimo:
+            produtos_com_baixa_quantidade.append(produto)
+    
+    return produtos_com_baixa_quantidade
+
+def atualizar_quantidade_produto(estoque_lista, codigo, quantidade):
+    for produto in estoque_lista:
+        if produto['codigo'] == codigo:
+            produto['quantidade'] += quantidade
+            return produto
+    return None
+
+def atualizar_preco_venda(estoque_lista, codigo, novo_preco_venda):
+    for produto in estoque_lista:
+        if produto['codigo'] == codigo:
+            produto['preco_venda'] = novo_preco_venda
+            return produto
+    return None
+
