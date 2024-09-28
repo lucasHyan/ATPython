@@ -1,4 +1,13 @@
 def validar_int_positivo(mensagem):
+    """
+    Valida a entrada do usuário como um número inteiro positivo.
+
+    Args:
+        mensagem (str): Mensagem a ser exibida ao solicitar a entrada do usuário.
+
+    Returns:
+        int: O valor inteiro positivo inserido pelo usuário.
+    """
     while True:
         valor = input(mensagem)
         try:
@@ -10,6 +19,15 @@ def validar_int_positivo(mensagem):
             print(f"Entrada inválida. {e} Tente novamente.")
 
 def validar_float_positivo(mensagem):
+    """
+    Valida a entrada do usuário como um número float positivo.
+
+    Args:
+        mensagem (str): Mensagem a ser exibida ao solicitar a entrada do usuário.
+
+    Returns:
+        float: O valor float positivo inserido pelo usuário.
+    """
     while True:
         valor = input(mensagem)
         try:
@@ -21,6 +39,12 @@ def validar_float_positivo(mensagem):
             print(f"Entrada inválida. {e} Tente novamente.")
 
 def exibir_relatorio_estoque(estoque_lista):
+    """
+    Exibe um relatório detalhado do estoque.
+
+    Args:
+        estoque_lista (list): Lista de produtos no estoque.
+    """
     custo_total = 0.0
     faturamento_total = 0.0
     
@@ -53,9 +77,18 @@ def exibir_relatorio_estoque(estoque_lista):
     print(f"{'Lucro liquido presumido:'.ljust(descricao_len + codigo_len + quantidade_len + custo_len + preco_venda_len)} {f'R$ {faturamento_total - custo_total:.2f}'.rjust(valor_total_len)}")
 
 def exibir_produtos(produtos):
+    """
+    Exibe uma lista de produtos.
+
+    Args:
+        produtos (list): Lista de produtos a serem exibidos.
+    """
     for produto in produtos:
         print(f"Nome: {produto['nome']}, Código: {produto['codigo']}, Quantidade: {produto['quantidade']}, Preço de Custo: {produto['preco_custo']}, Preço de Venda: {produto['preco_venda']}")
     pressione_enter_para_continuar()
     
 def pressione_enter_para_continuar():
+    """
+    Pausa a execução do programa até que o usuário pressione Enter.
+    """
     input("Pressione Enter para continuar...")

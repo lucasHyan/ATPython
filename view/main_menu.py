@@ -21,11 +21,17 @@ from estoque.estoque import estoque_lista
 
 
 def calcular_lucro():
+    """
+    Calcula o lucro presumido do estoque e exibe no console.
+    """
     lucro = calcular_lucro_presumido(estoque_lista)
     print(f"O lucro presumido é: R$ {lucro:.2f}")
     pressione_enter_para_continuar()
 
 def adicionar():
+    """
+    Adiciona um novo produto ao estoque.
+    """
     nome = input("Nome do produto: ")
     quantidade = validar_int_positivo("Quantidade: ")
     preco_custo = validar_float_positivo("Preço de custo: ")
@@ -36,6 +42,9 @@ def adicionar():
     pressione_enter_para_continuar()
 
 def atualizar():
+    """
+    Atualiza a quantidade ou o preço de venda de um produto no estoque.
+    """
     print("1. Atualizar quantidade")
     print("2. Atualizar preço de venda")
     escolha = input("Escolha uma opção: ")
@@ -64,6 +73,9 @@ def atualizar():
     pressione_enter_para_continuar()
     
 def buscar():
+    """
+    Busca um produto no estoque pelo nome ou código.
+    """
     print("1. Buscar por nome")
     print("2. Buscar por código")
     escolha = input("Escolha uma opção: ")
@@ -86,6 +98,9 @@ def buscar():
         pressione_enter_para_continuar()
 
 def ordenar_produtos_por_quantidade():
+    """
+    Ordena os produtos no estoque pela quantidade em ordem crescente ou decrescente.
+    """
     print("Escolha a ordem de exibição dos produtos:")
     print("1. Ordem crescente")
     print("2. Ordem decrescente")
@@ -103,6 +118,9 @@ def ordenar_produtos_por_quantidade():
     exibir_produtos(produtos_ordenados)
 
 def remover():
+    """
+    Remove um produto do estoque pelo código.
+    """
     codigo = validar_int_positivo("Código do produto a ser removido: ")
     produto_removido = remover_produto(estoque_lista, codigo)
     if produto_removido:
@@ -112,6 +130,9 @@ def remover():
     pressione_enter_para_continuar()
 
 def consultar_esgotados():
+    """
+    Consulta produtos esgotados no estoque.
+    """
     produtos_esgotados = consultar_produtos_esgotados(estoque_lista)
     if produtos_esgotados:
         exibir_produtos(produtos_esgotados)
@@ -120,6 +141,9 @@ def consultar_esgotados():
         pressione_enter_para_continuar()
 
 def filtrar_baixa_quantidade():
+    """
+    Filtra produtos com quantidade abaixo de um limite mínimo.
+    """
     limite_minimo = validar_int_positivo("Digite o limite mínimo de quantidade: ")
     produtos_com_baixa_quantidade = filtrar_produtos_com_baixa_quantidade(estoque_lista, limite_minimo)
     if produtos_com_baixa_quantidade:
@@ -129,6 +153,9 @@ def filtrar_baixa_quantidade():
         pressione_enter_para_continuar()
 
 def menu():
+    """
+    Exibe o menu principal e gerencia a navegação entre as opções.
+    """
     while True:
         print("\nmenu:")
         print("1. Adicionar produto")
