@@ -13,6 +13,3 @@ for item in itens:
     }
     
     estoque_lista.append(novo_produto)
-
-for produto in estoque_lista:
-    print(produto)

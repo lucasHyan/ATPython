@@ -1,4 +1,4 @@
-from view.main_menu import menu_interativo
+from view.main_menu import menu
 
 if __name__ == "__main__":
-    menu_interativo()
+    menu()

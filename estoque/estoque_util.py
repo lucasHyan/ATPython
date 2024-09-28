@@ -8,6 +8,7 @@ def cadastrar_produto(estoque_lista, nome, quantidade, preco_custo, preco_venda)
         'preco_venda': float(preco_venda)
     }
     estoque_lista.append(novo_produto)
+    return novo_produto
     
 def gerar_novo_codigo(estoque_lista):
     if not estoque_lista:
@@ -82,3 +83,12 @@ def validar_preco_venda(produto, novo_preco_venda):
 
 def validar_quantidade_produto(produto, quantidade):
     return produto['quantidade'] >= quantidade
+
+def calcular_lucro_presumido(estoque_lista):
+    lucro_total = 0.0
+    
+    for produto in estoque_lista:
+        lucro_individual = (produto['preco_venda'] - produto['preco_custo']) * produto['quantidade']
+        lucro_total += lucro_individual
+    
+    return lucro_total
