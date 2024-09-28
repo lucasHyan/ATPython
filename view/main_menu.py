@@ -51,9 +51,21 @@ def atualizar():
     
     if escolha == '1':
         codigo = validar_int_positivo("Código do produto a ser atualizado: ")
-        quantidade = validar_int_positivo("Nova quantidade: ")
-        produto_atualizado = atualizar_quantidade_produto(estoque_lista, codigo, quantidade)
-        if (produto_atualizado):
+        print("1. Aumentar quantidade")
+        print("2. Reduzir quantidade")
+        operacao = input("Escolha uma operação: ")
+        
+        if operacao == '1':
+            quantidade = validar_int_positivo("Quantidade a ser aumentada: ")
+            produto_atualizado = atualizar_quantidade_produto(estoque_lista, codigo, quantidade, '+')
+        elif operacao == '2':
+            quantidade = validar_int_positivo("Quantidade a ser reduzida: ")
+            produto_atualizado = atualizar_quantidade_produto(estoque_lista, codigo, quantidade, '-')
+        else:
+            print("Opção inválida.")
+            return
+        
+        if produto_atualizado:
             print("Quantidade atualizada com sucesso!")
             exibir_produtos([produto_atualizado])
         else:
@@ -62,7 +74,7 @@ def atualizar():
         codigo = validar_int_positivo("Código do produto a ser atualizado: ")
         novo_preco_venda = validar_float_positivo("Novo preço de venda: ")
         produto_atualizado = atualizar_preco_venda(estoque_lista, codigo, novo_preco_venda)
-        if (produto_atualizado):
+        if produto_atualizado:
             print("Preço de venda atualizado com sucesso!")
             exibir_produtos([produto_atualizado])
         else:
@@ -82,13 +94,12 @@ def buscar():
     
     if escolha == '1':
         nome = input("Nome do produto: ")
-        produtos_encontrados = buscar_produto(estoque_lista, nome_usuario=nome)
+        produtos_encontrados = buscar_produto(estoque_lista=estoque_lista, nome_usuario=nome)
     elif escolha == '2':
         codigo = validar_int_positivo("Código do produto: ")
-        produtos_encontrados = buscar_produto(estoque_lista, codigo=codigo)
+        produtos_encontrados = buscar_produto(estoque_lista=estoque_lista, codigo=codigo)
     else:
         print("Opção inválida.")
-        pressione_enter_para_continuar()
         return
     
     if produtos_encontrados:

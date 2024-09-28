@@ -144,23 +144,28 @@ def filtrar_produtos_com_baixa_quantidade(estoque_lista, limite_minimo=5):
     
     return produtos_com_baixa_quantidade
 
-def atualizar_quantidade_produto(estoque_lista, codigo, quantidade):
+def atualizar_quantidade_produto(estoque_lista, codigo, quantidade, operacao):
     """
     Atualiza a quantidade de um produto no estoque.
 
     Args:
         estoque_lista (list): Lista de produtos no estoque.
         codigo (int): Código do produto a ser atualizado.
-        quantidade (int): Nova quantidade do produto.
+        quantidade (int): Quantidade a ser atualizada.
+        operacao (str): Operação a ser realizada ('+' para aumentar, '-' para reduzir).
 
     Returns:
         dict: O produto atualizado, ou None se não encontrado ou quantidade inválida.
     """
     for produto in estoque_lista:
         if produto['codigo'] == codigo:
-            if validar_quantidade_produto(produto, quantidade):
+            if operacao == '+':
+                produto['quantidade'] += quantidade
+            elif operacao == '-' and produto['quantidade'] >= quantidade:
                 produto['quantidade'] -= quantidade
-                return produto
+            else:
+                return None
+            return produto
     return None
 
 def atualizar_preco_venda(estoque_lista, codigo, novo_preco_venda):
@@ -218,13 +223,13 @@ def calcular_lucro_presumido(estoque_lista):
     Returns:
         float: O lucro presumido total.
     """
-    lucro_total = 0.0
+    lucro_presumido = 0.0
     
     for produto in estoque_lista:
         lucro_individual = (produto['preco_venda'] - produto['preco_custo']) * produto['quantidade']
-        lucro_total += lucro_individual
+        lucro_presumido += lucro_individual
     
-    return lucro_total
+    return lucro_presumido
 
 def calcular_valor_total_estoque(estoque_lista):
     """
