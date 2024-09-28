@@ -95,3 +95,10 @@ def calcular_lucro_presumido(estoque_lista):
         lucro_total += lucro_individual
     
     return lucro_total
+
+def calcular_valor_total_estoque(estoque_lista):
+    valor_total = 0.0
+    for produto in estoque_lista:
+        valor_total += produto['quantidade'] * produto['preco_venda']
+    return valor_total
+

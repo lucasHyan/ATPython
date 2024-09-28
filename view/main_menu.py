@@ -5,7 +5,10 @@ from estoque.estoque_util import (
     buscar_produto,
     lista_produtos_ordenado_quantidade_asc,  
     lista_produtos_ordenado_quantidade_desc,
-    remover_produto
+    remover_produto,
+    consultar_produtos_esgotados,  
+    filtrar_produtos_com_baixa_quantidade,
+    calcular_lucro_presumido  
 )
 from .main_menu_util import (
     validar_int_positivo, 
@@ -15,6 +18,12 @@ from .main_menu_util import (
     pressione_enter_para_continuar
 )
 from estoque.estoque import estoque_lista
+
+
+def calcular_lucro():
+    lucro = calcular_lucro_presumido(estoque_lista)
+    print(f"O lucro presumido é: R$ {lucro:.2f}")
+    pressione_enter_para_continuar()
 
 def adicionar():
     nome = input("Nome do produto: ")
@@ -35,18 +44,25 @@ def atualizar():
         codigo = validar_int_positivo("Código do produto a ser atualizado: ")
         quantidade = validar_int_positivo("Nova quantidade: ")
         produto_atualizado = atualizar_quantidade_produto(estoque_lista, codigo, quantidade)
-        mensagem = "Quantidade atualizada com sucesso!" if produto_atualizado else "Erro ao atualizar quantidade."
+        if (produto_atualizado):
+            print("Quantidade atualizada com sucesso!")
+            exibir_produtos([produto_atualizado])
+        else:
+            print("Erro ao atualizar quantidade.")
     elif escolha == '2':
         codigo = validar_int_positivo("Código do produto a ser atualizado: ")
         novo_preco_venda = validar_float_positivo("Novo preço de venda: ")
         produto_atualizado = atualizar_preco_venda(estoque_lista, codigo, novo_preco_venda)
-        mensagem = "Preço de venda atualizado com sucesso!" if produto_atualizado else "Erro ao atualizar preço de venda."
+        if (produto_atualizado):
+            print("Preço de venda atualizado com sucesso!")
+            exibir_produtos([produto_atualizado])
+        else:
+            print("Erro ao atualizar preço de venda.")
     else:
-        mensagem = "Opção inválida."
+        print("Opção inválida.")
     
-    print(mensagem)
     pressione_enter_para_continuar()
-
+    
 def buscar():
     print("1. Buscar por nome")
     print("2. Buscar por código")
@@ -95,6 +111,23 @@ def remover():
         print("Erro ao remover produto. Código não encontrado.")
     pressione_enter_para_continuar()
 
+def consultar_esgotados():
+    produtos_esgotados = consultar_produtos_esgotados(estoque_lista)
+    if produtos_esgotados:
+        exibir_produtos(produtos_esgotados)
+    else:
+        print("Não há produtos esgotados.")
+        pressione_enter_para_continuar()
+
+def filtrar_baixa_quantidade():
+    limite_minimo = validar_int_positivo("Digite o limite mínimo de quantidade: ")
+    produtos_com_baixa_quantidade = filtrar_produtos_com_baixa_quantidade(estoque_lista, limite_minimo)
+    if produtos_com_baixa_quantidade:
+        exibir_produtos(produtos_com_baixa_quantidade)
+    else:
+        print("Não há produtos com quantidade abaixo do limite especificado.")
+        pressione_enter_para_continuar()
+
 def menu():
     while True:
         print("\nmenu:")
@@ -103,8 +136,11 @@ def menu():
         print("3. Exibir relatório de estoque")
         print("4. Buscar produto")
         print("5. Ordenar produtos por quantidade em estoque")
-        print("6. Remover produto") 
-        print("7. Sair")
+        print("6. Remover produto")
+        print("7. Consultar produtos esgotados")
+        print("8. Filtrar produtos com baixa quantidade")
+        print("9. Calcular lucro presumido")  
+        print("10. Sair")
         
         escolha = input("Escolha uma opção: ")
         
@@ -120,8 +156,14 @@ def menu():
         elif escolha == '5':
             ordenar_produtos_por_quantidade()
         elif escolha == '6':
-            remover()  
+            remover()
         elif escolha == '7':
+            consultar_esgotados()
+        elif escolha == '8':
+            filtrar_baixa_quantidade()
+        elif escolha == '9':
+            calcular_lucro()  
+        elif escolha == '10':
             print("Saindo do menu...")
             break
         else:
