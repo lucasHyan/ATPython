@@ -51,3 +51,11 @@ def exibir_relatorio_estoque(estoque_lista):
     print(f"{'Custo Total:'.ljust(descricao_len + codigo_len + quantidade_len + custo_len + preco_venda_len)} {f'R$ {custo_total:.2f}'.rjust(valor_total_len)}")
     print(f"{'Faturamento Total:'.ljust(descricao_len + codigo_len + quantidade_len + custo_len + preco_venda_len)} {f'R$ {faturamento_total:.2f}'.rjust(valor_total_len)}")
     print(f"{'Lucro liquido presumido:'.ljust(descricao_len + codigo_len + quantidade_len + custo_len + preco_venda_len)} {f'R$ {faturamento_total - custo_total:.2f}'.rjust(valor_total_len)}")
+
+def exibir_produtos(produtos):
+    for produto in produtos:
+        print(f"Nome: {produto['nome']}, Código: {produto['codigo']}, Quantidade: {produto['quantidade']}, Preço de Custo: {produto['preco_custo']}, Preço de Venda: {produto['preco_venda']}")
+    pressione_enter_para_continuar()
+    
+def pressione_enter_para_continuar():
+    input("Pressione Enter para continuar...")

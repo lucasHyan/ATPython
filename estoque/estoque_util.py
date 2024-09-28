@@ -16,8 +16,11 @@ def gerar_novo_codigo(estoque_lista):
     ultimo_codigo = max(produto['codigo'] for produto in estoque_lista)
     return ultimo_codigo + 1
 
-def lista_produtos_ordenado_quantidade(estoque_lista, asc=True):
-    return sorted(estoque_lista, key=lambda produto: produto['quantidade'], reverse=not asc)
+def lista_produtos_ordenado_quantidade_asc(estoque_lista):
+    return sorted(estoque_lista, key=lambda produto: produto['quantidade'])
+
+def lista_produtos_ordenado_quantidade_desc(estoque_lista):
+    return sorted(estoque_lista, key=lambda produto: produto['quantidade'], reverse=True)
 
 def buscar_produto(*, estoque_lista, nome_usuario=None, codigo=None):
     produtos_encontrados = []
